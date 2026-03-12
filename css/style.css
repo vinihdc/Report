@@ -1,0 +1,288 @@
+/* ── Reset ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ── Variáveis: Dark (padrão) ── */
+:root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --input-bg: #0f172a;
+    --preview-bg: #020617;
+    --border: #334155;
+    --border-hover: #475569;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --btn-bg: #334155;
+    --btn-hover: #475569;
+    --required: #ff3b3b;
+    --shadow: rgba(0, 0, 0, .4);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5 7l5 5 5-5H5z'/%3E%3C/svg%3E");
+}
+
+/* ── Variáveis: Bright ── */
+:root.bright {
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --input-bg: #f8fafc;
+    --preview-bg: #f1f5f9;
+    --border: #cbd5e1;
+    --border-hover: #94a3b8;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --accent: #2563eb;
+    --btn-bg: #e2e8f0;
+    --btn-hover: #cbd5e1;
+    --required: #dc2626;
+    --shadow: rgba(0, 0, 0, .08);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%230f172a' viewBox='0 0 20 20'%3E%3Cpath d='M5 7l5 5 5-5H5z'/%3E%3C/svg%3E");
+}
+
+/* ── Base ── */
+body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    gap: 20px;
+    transition: background .2s, color .2s;
+}
+
+/* ── Barra superior ── */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+#template {
+    min-width: 220px;
+}
+
+/* Botão de tema */
+#btn-tema {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+/* ── Layout ── */
+.container {
+    display: flex;
+    gap: 40px;
+    max-width: 1100px;
+    width: 100%;
+    min-height: 80vh;
+}
+
+/* ── Formulário ── */
+.form {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0 10px 30px var(--shadow);
+    transition: background .2s, box-shadow .2s;
+}
+
+.form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ── Campos ── */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    outline: none;
+    font-size: 14px;
+    transition: border-color .15s, background .2s, color .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+}
+
+textarea {
+    resize: none;
+    min-height: 70px;
+    line-height: 1.4;
+}
+
+#statusReport {
+    min-height: 120px;
+}
+
+select {
+    appearance: none;
+    background-image: var(--select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+/* ── Grid ── */
+.group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.group-text {
+    grid-template-columns: 1fr;
+}
+
+/* ── Header de seção ── */
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ── Botões ── */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--btn-bg);
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+button:hover {
+    background: var(--btn-hover);
+}
+
+.btn-small {
+    width: auto;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.btn-remove {
+    width: auto;
+    padding: 10px 14px;
+}
+
+.buttons {
+    margin-top: 15px;
+}
+
+/* ── Preview ── */
+.preview {
+    flex: 1;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 23px;
+    box-shadow: 0 10px 30px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: background .2s;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.copy-icon {
+    background: var(--btn-bg);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    width: auto;
+}
+
+.copy-icon:hover {
+    background: var(--btn-hover);
+}
+
+#preview {
+    flex: 1;
+    background: var(--preview-bg);
+    color: var(--text);
+    padding: 20px;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+    border: 1px solid var(--border);
+    overflow: auto;
+    transition: background .2s, color .2s, border-color .2s;
+}
+
+/* ── Field obrigatório ── */
+.field {
+    position: relative;
+}
+
+.field.required::after {
+    content: "*";
+    color: var(--required);
+    font-weight: bold;
+    position: absolute;
+    top: 0.2px;
+    right: 5px;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+/* ── Visibilidade de templates ── */
+.template {
+    display: none;
+}
+
+.template.active {
+    display: block;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+}
+
+/* ── Validação visual em tempo real ── */
+input.invalid,
+textarea.invalid {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+input.valid,
+textarea.valid {
+    border-color: #22c55e !important;
+    background-color: rgba(34, 197, 94, 0.05);
+}

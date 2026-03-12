@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Report Automático</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <select id="template"></select>
+        <button id="btn-tema" onclick="alternarTema()" title="Alternar tema">🌙</button>
+    </div>
+
+    <div class="container">
+
+        <!-- COTI -->
+        <form id="form-coti" class="form template">
+            <h2>Gerador de Status Report</h2>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="inicio" type="datetime-local" required>
+                </div>
+                <input id="fim" type="datetime-local">
+                <select id="status">
+                    <option value="em_analise">⚪ Em análise</option>
+                    <option value="disponivel">🟢 Disponível</option>
+                    <option value="indisponivel">🔴 Indisponível</option>
+                    <option value="intermitente">🟡 Intermitente</option>
+                </select>
+                <div class="field required">
+                    <input id="chamado" placeholder="Chamado" required>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <select id="jornada">
+                    <option value="comercial_pf">Comercial PF</option>
+                    <option value="financeiro">Financeiro</option>
+                    <option value="canais_criticos">Canais críticos</option>
+                    <option value="tecnica">Técnica</option>
+                    <option value="pme">PME</option>
+                    <option value="retencao_residencial">Retenção residencial</option>
+                    <option value="retencao_movel">Retenção móvel</option>
+                    <option value="rentabilizacao">Rentabilização</option>
+                    <option value="mudanca_endereco">Mudança de endereço</option>
+                </select>
+                <div class="field required">
+                    <input id="funcionalidade" placeholder="Funcionalidade" required>
+                </div>
+                <select id="impacto">
+                    <option value="pontual">Pontual</option>
+                    <option value="parcial">Parcial</option>
+                    <option value="massivo">Massivo</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <textarea id="resumo" placeholder="Resumo" required></textarea>
+                </div>
+                <div class="field required">
+                    <textarea id="fato" placeholder="Fato" required></textarea>
+                </div>
+                <textarea id="causa" placeholder="Causa"></textarea>
+                <textarea id="acao" placeholder="Ação"></textarea>
+            </div>
+
+            <div class="group group-text">
+                <div class="field required">
+                    <textarea id="statusReport" placeholder="Status Report" required></textarea>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
+        <!-- TURNO N1 SOLAR -->
+        <form id="form-turno-n1-solar" class="form template">
+            <h2>Passagem de Turno N1 Solar</h2>
+
+            <div class="group">
+                <select id="turno-n1">
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                </select>
+                <input id="resumo-n1-solar" placeholder="Resumo do turno">
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="n1-caixa" type="number" min="0" placeholder="Caixa N1 aguardando" required>
+                </div>
+                <div class="field required">
+                    <input id="n1-prospect" type="number" min="0" placeholder="Prospect pendentes" required>
+                </div>
+                <div class="field required">
+                    <input id="n1-base" type="number" min="0" placeholder="Base pendentes" required>
+                </div>
+                <div class="field required">
+                    <input id="n1-pme" type="number" min="0" placeholder="PME pendentes" required>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="group-header">
+                <span>⚠️ Alertas durante o turno</span>
+                <button type="button" class="btn-small" onclick="adicionarAlerta()">+ Alerta</button>
+            </div>
+
+            <div id="n1-alertas-lista"></div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
+        <!-- TURNO N2 SOLAR -->
+        <form id="form-turno-n2" class="form template">
+            <h2>Passagem de Turno N2 Solar</h2>
+
+            <div class="group">
+                <select id="turno">
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                </select>
+                <input id="resumo-turno" placeholder="Resumo do turno">
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="n2-prospect" type="number" min="0" max="100" placeholder="Prospect %" required>
+                </div>
+                <div class="field required">
+                    <input id="n2-base" type="number" min="0" max="100" placeholder="Base %" required>
+                </div>
+                <div class="field required">
+                    <input id="n2-pme" type="number" min="0" max="100" placeholder="PME %" required>
+                </div>
+                <div></div>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="qtd-chamados" type="number" min="0" placeholder="Qtd. chamados" required>
+                </div>
+                <div class="field required">
+                    <input id="data-venc" type="date" required>
+                </div>
+                <div class="field required">
+                    <input id="sla-horario" type="time" required>
+                </div>
+                <div></div>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="cnt-fila" type="number" min="0" placeholder="Em fila" required>
+                </div>
+                <div class="field required">
+                    <input id="cnt-atendimento" type="number" min="0" placeholder="Em atendimento" required>
+                </div>
+                <div class="field required">
+                    <input id="cnt-externo" type="number" min="0" placeholder="Aguard. retorno externo" required>
+                </div>
+                <div class="field required">
+                    <input id="cnt-reaberto" type="number" min="0" placeholder="Reaberto" required>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
+        <!-- PREVIEW -->
+        <div class="preview">
+            <div class="preview-header">
+                <h3>Pré-visualização</h3>
+                <button class="copy-icon" onclick="copiar()" id="btn-copiar">📋</button>
+            </div>
+            <pre id="preview"></pre>
+        </div>
+
+    </div>
+
+    <script src="./js/script.js" type="module"></script>
+</body>
+
+</html>
