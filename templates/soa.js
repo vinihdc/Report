@@ -1,14 +1,14 @@
-import { $, setReport } from "../js/script.js"
+import { $, setReport, val } from "../js/utils.js"
 
 export function gerarSoa() {
     if (!$("cs-acao")) return
 
-    const acao = $("cs-acao").value.trim() || "*"
-    const apiProxy = $("cs-apiproxy").value.trim() || "*"
-    const resumoErro = $("cs-resumo").value.trim() || "*"
+    const { "cs-acao": acao, "cs-apiproxy": apiProxy, "cs-resumo": resumoErro } = vals(
+        "cs-acao", "cs-apiproxy", "cs-resumo"
+    )
 
     setReport(
-        `Chamado para SOA
+`Chamado para SOA
 
 Caros,
 

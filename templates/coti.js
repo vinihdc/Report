@@ -1,4 +1,4 @@
-import { $, setReport, formatarData, getTextoSelect } from "../js/script.js"
+import { $, setReport, formatarData, getTextoSelect } from "../js/utils.js"
 
 export function gerarCoti() {
     if (!$("chamado")) return

@@ -1,4 +1,4 @@
-import { $, setReport, getTurno, getHoje, getAlertasN1 } from "../js/script.js"
+import { $, setReport, getTurno, getHoje, getAlertasN1 } from "../js/utils.js"
 
 export function gerarTurnoN1Solar() {
     if (!$("turno-n1")) return

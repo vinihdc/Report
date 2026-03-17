@@ -1,19 +1,21 @@
-import { $, setReport } from "../js/script.js"
+import { $, setReport, vals } from "../js/utils.js"
 
 export function gerarPosPago() {
     if (!$("ca-acao")) return
 
-    const acao = $("ca-acao").value.trim() || "*"
-    const appName = $("ca-appname").value.trim() || "*"
-    const resumo = $("ca-resumo").value.trim() || "*"
-    const codigo = $("ca-codigo").value.trim() || "*"
-    const eCode = $("ca-errorcode").value.trim() || "*"
-    const msg = $("ca-mensagem").value.trim() || "*"
-    const ban = $("ca-ban").value.trim() || "*"
-    const contrato = $("ca-contrato").value.trim() || "*"
+    const {
+        "ca-acao":       acao,
+        "ca-appname":    appName,
+        "ca-resumo":     resumo,
+        "ca-codigo":     codigo,
+        "ca-errorcode":  eCode,
+        "ca-mensagem":   msg,
+        "ca-ban":        ban,
+        "ca-contrato":   contrato,
+    } = vals("ca-acao", "ca-appname", "ca-resumo", "ca-codigo", "ca-errorcode", "ca-mensagem", "ca-ban", "ca-contrato")
 
     setReport(
-        `Caros,
+`Caros,
 
 Identificamos um problema ao tentar ${acao}. Em análise verificamos que a API ${appName} está retornando ${resumo}. O erro retornado é um ${codigo}, com o errorCode ${eCode}. A mensagem que o sistema retorna é: "${msg}".
 
