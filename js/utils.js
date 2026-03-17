@@ -82,12 +82,15 @@ export function inicializarCampos(onChangeCb) {
     if (checkboxHoje && !checkboxHoje._listenerAdded) {
         checkboxHoje._listenerAdded = true
         checkboxHoje.addEventListener("change", () => {
+            const campos = grupoHoje.querySelectorAll("input")
             if (checkboxHoje.checked) {
                 grupoHoje.style.display = "grid"
                 if ($("data-hoje")) $("data-hoje").value = new Date().toLocaleDateString("pt-BR")
+                campos.forEach(el => el.setAttribute("required", ""))
             } else {
                 grupoHoje.style.display = "none"
                 if ($("qtd-hoje")) $("qtd-hoje").value = ""
+                campos.forEach(el => el.removeAttribute("required"))
             }
             onChangeCb?.()
         })
