@@ -248,8 +248,7 @@ button:hover {
     position: relative;
 }
 
-.field:has(input[required])::after,
-.field:has(textarea[required])::after {
+.field.required::after {
     content: "*";
     color: var(--required);
     font-weight: bold;
