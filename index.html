@@ -166,16 +166,36 @@
             <hr>
 
             <div class="group">
-                <div class="field required">
-                    <input id="qtd-chamados" type="number" min="0" placeholder="Qtd. chamados" required>
+                <label class="toggle-label" style="grid-column: 1 / -1;">
+                    <span>Temos chamados para hoje?</span>
+                    <div class="toggle-wrapper">
+                        <input type="checkbox" id="tem-hoje" style="width:auto;">
+                        <span class="toggle-track"></span>
+                    </div>
+                </label>
+            </div>
+
+            <div id="grupo-hoje" style="display: none; margin-bottom: 12px;">
+                <div class="group">
+                    <div class="field required">
+                        <input id="qtd-hoje" type="number" min="0" placeholder="Qtd. chamados hoje">
+                    </div>
+                    <div class="field required">
+                        <input id="sla-horario2" type="time">
+                    </div>
                 </div>
+            </div>
+
+            <div class="group">
                 <div class="field required">
-                    <input id="data-venc" type="date" required>
+                    <input id="qtd-chamados" type="number" min="0" placeholder="Qtd. chamados amanhã" required>
+                </div>
+                <div class="field">
+                    <input id="data-venc" type="text" readonly>
                 </div>
                 <div class="field required">
                     <input id="sla-horario" type="time" required>
                 </div>
-                <div></div>
             </div>
 
             <hr>
@@ -199,6 +219,86 @@
                 <button type="button" onclick="limpar()">Limpar campos</button>
             </div>
         </form>
+
+        <!-- CHAMADO Pós-Pago -->
+        <form id="form-pos-pago" class="form template">
+            <h2>Chamado Pós-Pago</h2>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <input id="ca-acao" placeholder="Ação que está tentando realizar" required>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="ca-appname" placeholder="Nome da API (AppName)" required>
+                </div>
+                <div class="field required">
+                    <input id="ca-resumo" placeholder="Resumo do retorno" required>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="ca-codigo" placeholder="Código do erro (ex: 400)" required>
+                </div>
+                <div class="field required">
+                    <input id="ca-errorcode" placeholder="ErrorCode (ex: INVALID_PARAMETER)" required>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <textarea id="ca-mensagem" placeholder='Mensagem de retorno (ex: "Field cpf is invalid")'
+                        required></textarea>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="ca-ban" placeholder="BAN (nº cliente)" required>
+                </div>
+                <div class="field required">
+                    <input id="ca-contrato" placeholder="Nº do contrato" required>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
+        <!-- CHAMADO SOA -->
+        <form id="form-soa" class="form template">
+            <h2>Chamado SOA</h2>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <input id="cs-acao" placeholder="Ação que está tentando realizar" required>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <input id="cs-apiproxy" placeholder="ApiProxy.Name (ex: claro-soa-portabilidade-v1)" required>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <textarea id="cs-resumo" placeholder="Resumo do erro (ex: timeout após 30s sem resposta)"
+                        required></textarea>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
 
         <!-- PREVIEW -->
         <div class="preview">

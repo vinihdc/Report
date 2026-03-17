@@ -1,6 +1,8 @@
-import { gerarCoti }        from "../templates/coti.js"
+import { gerarCoti } from "../templates/coti.js"
 import { gerarTurnoN1Solar } from "../templates/turno1.js"
-import { gerarTurno }       from "../templates/turno2.js"
+import { gerarTurno } from "../templates/turno2.js"
+import { gerarSoa } from "../templates/soa.js"
+import { gerarPosPago } from "../templates/posPago.js"
 
 let reportFinal = ""
 
@@ -14,7 +16,7 @@ export function setReport(texto) {
 export function formatarData(data) {
     if (!data) return "''"
     const d = new Date(data)
-    const dia  = d.toLocaleDateString("pt-BR")
+    const dia = d.toLocaleDateString("pt-BR")
     const hora = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
     return `${dia} ${hora}`
 }
@@ -41,8 +43,8 @@ export function getFallout(prefix) {
     }
     return {
         prospect: parse(`${prefix}-prospect`),
-        base:     parse(`${prefix}-base`),
-        pme:      parse(`${prefix}-pme`),
+        base: parse(`${prefix}-base`),
+        pme: parse(`${prefix}-pme`),
     }
 }
 
@@ -57,10 +59,43 @@ export function getAlertasN1() {
     }).filter(Boolean).join("\n\n")
 }
 
+export function inicializarCampos() {
+    const dataVencInput = $("data-venc");
+    if (dataVencInput && !dataVencInput.value) {
+        const amanha = new Date();
+        amanha.setDate(amanha.getDate() + 1);
+        dataVencInput.value = amanha.toLocaleDateString("pt-BR");
+    }
+
+    const dataHojeInput = $("data-hoje");
+    if (dataHojeInput && !dataHojeInput.value) {
+        dataHojeInput.value = new Date().toLocaleDateString("pt-BR");
+    }
+
+    const checkboxHoje = $("tem-hoje");
+    const grupoHoje = $("grupo-hoje");
+
+    if (checkboxHoje && !checkboxHoje._listenerAdded) {
+        checkboxHoje._listenerAdded = true;
+        checkboxHoje.addEventListener("change", () => {
+            if (checkboxHoje.checked) {
+                grupoHoje.style.display = "grid";
+                $("data-hoje").value = new Date().toLocaleDateString("pt-BR");
+            } else {
+                grupoHoje.style.display = "none";
+                $("qtd-hoje").value = "";
+            }
+            gerarTurno();
+        });
+    }
+}
+
 const templates = {
-    coti:    { nome: "COTI",                   form: "form-coti",            gerar: gerarCoti        },
-    turno1:  { nome: "Passagem de Turno N1",   form: "form-turno-n1-solar",  gerar: gerarTurnoN1Solar },
-    turno2:  { nome: "Passagem de Turno N2",   form: "form-turno-n2",        gerar: gerarTurno       },
+    coti: { nome: "COTI", form: "form-coti", gerar: gerarCoti },
+    turno1: { nome: "Passagem de Turno N1", form: "form-turno-n1-solar", gerar: gerarTurnoN1Solar },
+    turno2: { nome: "Passagem de Turno N2", form: "form-turno-n2", gerar: gerarTurno },
+    soa: { nome: "SOA", form: "form-soa", gerar: gerarSoa },
+    posPago: { nome: "Pós-Pago", form: "form-pos-pago", gerar: gerarPosPago }
 }
 
 const templateSelect = $("template")
@@ -79,7 +114,7 @@ document.querySelectorAll(".form input, .form select, .form textarea")
         el.addEventListener("input", gerar)
         if (el.required) {
             el.addEventListener("blur", () => el.dataset.dirty = "1", { once: true })
-            el.addEventListener("blur",  () => validarCampo(el))
+            el.addEventListener("blur", () => validarCampo(el))
             el.addEventListener("input", () => { if (el.dataset.dirty) validarCampo(el) })
         }
     })
@@ -120,7 +155,7 @@ function feedbackCopiar(ok) {
     setTimeout(() => btn.innerText = "📋", 2000)
 }
 
-window.gerar  = gerar
+window.gerar = gerar
 
 window.limpar = () => {
     const form = document.querySelector(".form.active")
@@ -161,7 +196,7 @@ trocarTemplate()
 function validarCampo(el) {
     const vazio = !el.value.trim()
     el.classList.toggle("invalid", vazio)
-    el.classList.toggle("valid",  !vazio)
+    el.classList.toggle("valid", !vazio)
 }
 
 function limparValidacao(form) {
@@ -170,3 +205,4 @@ function limparValidacao(form) {
         delete el.dataset.dirty
     })
 }
+
