@@ -84,10 +84,10 @@ export function inicializarCampos(onChangeCb) {
         checkboxHoje.addEventListener("change", () => {
             if (checkboxHoje.checked) {
                 grupoHoje.style.display = "grid"
-                $("data-hoje").value = new Date().toLocaleDateString("pt-BR")
+                if ($("data-hoje")) $("data-hoje").value = new Date().toLocaleDateString("pt-BR")
             } else {
                 grupoHoje.style.display = "none"
-                $("qtd-hoje").value = ""
+                if ($("qtd-hoje")) $("qtd-hoje").value = ""
             }
             onChangeCb?.()
         })
