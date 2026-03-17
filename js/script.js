@@ -9,7 +9,7 @@ const templates = {
     coti: { nome: "COTI", form: "form-coti", gerar: gerarCoti },
     turno1: { nome: "Passagem de Turno N1", form: "form-turno-n1-solar", gerar: gerarTurnoN1Solar },
     turno2: { nome: "Passagem de Turno N2", form: "form-turno-n2", gerar: gerarTurno },
-    soa: { nome: "Chamado SOA", form: "form-soa", gerar: gerarSoa },
+    soa: { nome: "SOA", form: "form-soa", gerar: gerarSoa },
     posPago: { nome: "Pós-Pago", form: "form-pos-pago", gerar: gerarPosPago },
 }
 
@@ -44,7 +44,7 @@ function trocarTemplate() {
     if (!t) return
 
     const form = $(t.form)
-    if (!form) return  // ← evita o crash de classList em form null
+    if (!form) return 
 
     form.classList.remove("hidden")
     form.classList.add("active")

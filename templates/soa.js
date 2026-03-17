@@ -1,4 +1,4 @@
-import { $, setReport, val } from "../js/utils.js"
+import { $, setReport, vals } from "../js/utils.js"
 
 export function gerarSoa() {
     if (!$("cs-acao")) return

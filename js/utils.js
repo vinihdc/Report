@@ -11,13 +11,10 @@ export function setReport(texto) {
     $("preview").innerText = texto
 }
 
-// Lê um campo de texto — sempre retorna "*" se vazio
 export function val(id) {
     return $(`${id}`)?.value?.trim() || "*"
 }
 
-// Lê vários campos de uma vez
-// val("ca-acao", "ca-appname") → { "ca-acao": "...", "ca-appname": "..." }
 export function vals(...ids) {
     return Object.fromEntries(ids.map(id => [id, val(id)]))
 }
