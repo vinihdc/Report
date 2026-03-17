@@ -54,6 +54,7 @@
                     <input id="funcionalidade" placeholder="Funcionalidade" required>
                 </div>
                 <select id="impacto">
+                    <option value="em_analise">Em análise</option>
                     <option value="pontual">Pontual</option>
                     <option value="parcial">Parcial</option>
                     <option value="massivo">Massivo</option>
@@ -72,12 +73,15 @@
                 <textarea id="causa" placeholder="Causa"></textarea>
                 <textarea id="acao" placeholder="Ação"></textarea>
             </div>
-
+            <div class="input-wrapper">
+                <span class="sub-hint">Campos ‘ação’ e ‘fato’ não preenchidos serão definidos como ‘Em análise’.</span>
+            </div>
             <div class="group group-text">
                 <div class="field required">
                     <textarea id="statusReport" placeholder="Status Report" required></textarea>
                 </div>
             </div>
+
 
             <div class="buttons">
                 <button type="button" onclick="limpar()">Limpar campos</button>
@@ -140,22 +144,25 @@
                 </select>
                 <input id="resumo-turno" placeholder="Resumo do turno">
             </div>
+            <div class="input-wrapper">
+                <span class="sub-hint">Caso o "resumo do turno" não seja preenchido, será usado um texto padrão.</span>
+            </div>
 
             <hr>
 
             <div class="group">
                 <div class="field required">
-                    <input id="n2-prospect" type="number" min="0" max="100" placeholder="Prospect %" required>
+                    <input id="n2-prospect" type="number" min="0" max="100" step="any" placeholder="Prospect %"
+                        required>
                 </div>
                 <div class="field required">
-                    <input id="n2-base" type="number" min="0" max="100" placeholder="Base %" required>
+                    <input id="n2-base" type="number" min="0" max="100" step="any" placeholder="Base %" required>
                 </div>
                 <div class="field required">
-                    <input id="n2-pme" type="number" min="0" max="100" placeholder="PME %" required>
+                    <input id="n2-pme" type="number" min="0" max="100" step="any" placeholder="PME %" required>
                 </div>
                 <div></div>
             </div>
-
             <hr>
 
             <div class="group">
