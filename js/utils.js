@@ -54,6 +54,13 @@ export function getFallout(prefix) {
     }
 }
 
+export function getSalaLink(idToggle, idLink) {
+    const toggle = $(idToggle)
+    if (!toggle?.checked) return null
+    const link = $(idLink)?.value?.trim()
+    return link || null
+}
+
 export function getAlertasN1() {
     const items = document.querySelectorAll(".alerta-item")
     if (!items.length) return "Nenhum alerta durante o turno."
@@ -71,6 +78,22 @@ export function inicializarCampos(onChangeCb) {
         const amanha = new Date()
         amanha.setDate(amanha.getDate() + 1)
         dataVencInput.value = amanha.toLocaleDateString("pt-BR")
+    }
+
+    const checkboxSala = $("tem-sala")
+    const grupoSala = $("grupo-sala")
+
+    if (checkboxSala && !checkboxSala._listenerAdded) {
+        checkboxSala._listenerAdded = true
+        checkboxSala.addEventListener("change", () => {
+            if (checkboxSala.checked) {
+                grupoSala.style.display = "grid"
+            } else {
+                grupoSala.style.display = "none"
+                $("sala-link").value = ""
+            }
+            onChangeCb?.()
+        })
     }
 
     const checkboxHoje = $("tem-hoje")

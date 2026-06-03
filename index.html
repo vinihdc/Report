@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./css/report.png" type="image/x-icon">
     <title>Report Automático</title>
 </head>
 
@@ -39,49 +40,36 @@
             <hr>
 
             <div class="group">
-                <select id="jornada">
-                    <option value="comercial_pf">Comercial PF</option>
-                    <option value="financeiro">Financeiro</option>
-                    <option value="canais_criticos">Canais críticos</option>
-                    <option value="tecnica">Técnica</option>
-                    <option value="pme">PME</option>
-                    <option value="retencao_residencial">Retenção residencial</option>
-                    <option value="retencao_movel">Retenção móvel</option>
-                    <option value="rentabilizacao">Rentabilização</option>
-                    <option value="mudanca_endereco">Mudança de endereço</option>
-                </select>
                 <div class="field required">
-                    <input id="funcionalidade" placeholder="Funcionalidade" required>
+                    <textarea id="resumo" placeholder="Resumo" required></textarea>
                 </div>
-                <select id="impacto">
-                    <option value="em_analise">Em análise</option>
-                    <option value="pontual">Pontual</option>
-                    <option value="parcial">Parcial</option>
-                    <option value="massivo">Massivo</option>
-                </select>
+                <textarea id="causa" placeholder="Causa"></textarea>
+                <textarea id="acao" placeholder="Conclusão"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <span class="sub-hint">Campos 'causa' e 'conclusão' não preenchidos serão definidos como 'Em
+                    análise'.</span>
             </div>
 
             <hr>
 
             <div class="group">
-                <div class="field required">
-                    <textarea id="resumo" placeholder="Resumo" required></textarea>
-                </div>
-                <div class="field required">
-                    <textarea id="fato" placeholder="Fato" required></textarea>
-                </div>
-                <textarea id="causa" placeholder="Causa"></textarea>
-                <textarea id="acao" placeholder="Ação"></textarea>
-            </div>
-            <div class="input-wrapper">
-                <span class="sub-hint">Campos ‘ação’ e ‘fato’ não preenchidos serão definidos como ‘Em análise’.</span>
-            </div>
-            <div class="group group-text">
-                <div class="field required">
-                    <textarea id="statusReport" placeholder="Status Report" required></textarea>
-                </div>
+                <label class="toggle-label" style="grid-column: 1 / -1;">
+                    <span>Temos sala?</span>
+                    <div class="toggle-wrapper">
+                        <input type="checkbox" id="tem-sala" style="width:auto;">
+                        <span class="toggle-track"></span>
+                    </div>
+                </label>
             </div>
 
+            <div id="grupo-sala" style="display: none; margin-bottom: 12px;">
+                <div class="group">
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <input id="sala-link" placeholder="Link da sala">
+                    </div>
+                </div>
+            </div>
 
             <div class="buttons">
                 <button type="button" onclick="limpar()">Limpar campos</button>
@@ -293,6 +281,114 @@
                     <textarea id="cs-resumo" placeholder="Resumo do erro" required></textarea>
                 </div>
             </div>
+
+            <div class="buttons">
+                <button type="button" onclick="limpar()">Limpar campos</button>
+            </div>
+        </form>
+
+        <!-- FCA TV DO FUTURO -->
+        <form id="form-fca" class="form template">
+            <h2>FCA - TV do Futuro</h2>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <input id="fca-titulo" placeholder="Título (ex: TV DO FUTURO - INTERMITÊNCIA NOS CADASTROS)"
+                        required>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required">
+                    <input id="fca-hi" type="datetime-local" required>
+                </div>
+                <input id="fca-hf" type="datetime-local">
+                <select id="fca-status">
+                    <option value="em_andamento">🟡 EM ANDAMENTO</option>
+                    <option value="resolvido">🟢 RESOLVIDO</option>
+                    <option value="em_analise">⚪ EM ANÁLISE</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <!-- Ambientes -->
+            <div class="group-header">
+                <span>Ambientes afetados</span>
+                <button type="button" class="btn-small" onclick="adicionarAmbienteFca()">+ Ambiente</button>
+            </div>
+            <div id="fca-ambientes-lista"></div>
+
+            <hr>
+
+            <div class="group">
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <textarea id="fca-fato" placeholder="Fato" required></textarea>
+                </div>
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <textarea id="fca-causa" placeholder="Causa" required></textarea>
+                </div>
+                <div class="field required" style="grid-column: 1 / -1;">
+                    <textarea id="fca-impacto" placeholder="Impacto para o cliente" required></textarea>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="group-header">
+                <span>Ações</span>
+                <button type="button" class="btn-small" onclick="adicionarAcaoFca()">+ Ação</button>
+            </div>
+            <div id="fca-acoes-lista"></div>
+
+            <hr>
+
+            <!-- Volumetria -->
+            <div class="group">
+                <label class="toggle-label" style="grid-column: 1 / -1;">
+                    <span>Temos volumetria?</span>
+                    <div class="toggle-wrapper">
+                        <input type="checkbox" id="fca-tem-volumetria" style="width:auto;">
+                        <span class="toggle-track"></span>
+                    </div>
+                </label>
+            </div>
+            <div id="fca-grupo-volumetria" style="display: none; margin-bottom: 12px;">
+                <div class="group">
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <input id="fca-volumetria" placeholder="Ex: 30% de erros na API do AVS">
+                    </div>
+                </div>
+            </div>
+
+            <!-- FCA TV -->
+            <div class="group">
+                <label class="toggle-label" style="grid-column: 1 / -1;">
+                    <span>Temos incidente?</span>
+                    <div class="toggle-wrapper">
+                        <input type="checkbox" id="fca-tem-incidente" style="width:auto;">
+                        <span class="toggle-track"></span>
+                    </div>
+                </label>
+            </div>
+            <div id="fca-grupo-incidente" style="display: none; margin-bottom: 12px;">
+                <div class="group">
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <input id="fca-incidente" placeholder="Ex: INC-180662">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Responsáveis -->
+            <div class="group-header">
+                <span>Responsáveis pela análise</span>
+                <button type="button" class="btn-small" onclick="adicionarResponsavelFca()">+ Responsável</button>
+            </div>
+            <div id="fca-responsaveis-lista"></div>
 
             <div class="buttons">
                 <button type="button" onclick="limpar()">Limpar campos</button>

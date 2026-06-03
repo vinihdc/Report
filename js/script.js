@@ -3,7 +3,8 @@ import { gerarTurnoN1Solar } from "../templates/turno1.js"
 import { gerarTurno } from "../templates/turno2.js"
 import { gerarSoa } from "../templates/soa.js"
 import { gerarPosPago } from "../templates/posPago.js"
-import { $, getReportFinal, setReport } from "./utils.js"
+import { gerarFca } from "../templates/fca.js"
+import { $, getReportFinal, setReport, inicializarCampos } from "./utils.js"
 
 const templates = {
     coti: { nome: "COTI", form: "form-coti", gerar: gerarCoti },
@@ -11,6 +12,7 @@ const templates = {
     turno2: { nome: "Passagem de Turno N2", form: "form-turno-n2", gerar: gerarTurno },
     soa: { nome: "SOA", form: "form-soa", gerar: gerarSoa },
     posPago: { nome: "Pós-Pago", form: "form-pos-pago", gerar: gerarPosPago },
+    fca: { nome: "FCA - TV do Futuro", form: "form-fca", gerar: gerarFca },
 }
 
 const templateSelect = $("template")
@@ -44,12 +46,14 @@ function trocarTemplate() {
     if (!t) return
 
     const form = $(t.form)
-    if (!form) return 
+    if (!form) return
 
     form.classList.remove("hidden")
     form.classList.add("active")
     limparValidacao(form)
     setReport("")
+    inicializarCampos(gerar)
+    inicializarFca()
     gerar()
 }
 
@@ -77,8 +81,8 @@ window.limpar = () => {
     const form = document.querySelector(".form.active")
     form.reset()
     limparValidacao(form)
-    const lista = $("n1-alertas-lista")
-    if (lista) lista.innerHTML = ""
+    const listas = ["n1-alertas-lista", "fca-acoes-lista", "fca-ambientes-lista", "fca-responsaveis-lista"]
+    listas.forEach(id => { const el = $(id); if (el) el.innerHTML = "" })
     setReport("")
 }
 
@@ -120,4 +124,66 @@ function limparValidacao(form) {
         el.classList.remove("invalid", "valid")
         delete el.dataset.dirty
     })
+}
+
+function inicializarFca() {
+    const toggles = [
+        { check: "fca-tem-volumetria", grupo: "fca-grupo-volumetria", input: "fca-volumetria" },
+        { check: "fca-tem-incidente", grupo: "fca-grupo-incidente", input: "fca-incidente" },
+    ]
+
+    toggles.forEach(({ check, grupo, input }) => {
+        const checkbox = $(check)
+        const grupoEl = $(grupo)
+        if (!checkbox || checkbox._listenerAdded) return
+        checkbox._listenerAdded = true
+        checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+                grupoEl.style.display = "grid"
+            } else {
+                grupoEl.style.display = "none"
+                $(input).value = ""
+            }
+            gerar()
+        })
+    })
+}
+
+window.adicionarAcaoFca = () => {
+    const lista = $("fca-acoes-lista")
+    const div = document.createElement("div")
+    div.className = "fca-acao-item group"
+    div.innerHTML = `
+        <textarea class="fca-acao-texto" placeholder="Descreva a ação" style="grid-column: 1 / -1;"></textarea>
+        <button type="button" class="btn-remove" style="grid-column: 1 / -1;">🗑️ Remover</button>
+    `
+    div.querySelector(".btn-remove").addEventListener("click", () => { div.remove(); gerar() })
+    div.querySelector("textarea").addEventListener("input", gerar)
+    lista.appendChild(div)
+}
+
+window.adicionarAmbienteFca = () => {
+    const lista = $("fca-ambientes-lista")
+    const div = document.createElement("div")
+    div.className = "fca-ambiente-item group"
+    div.innerHTML = `
+        <input class="fca-ambiente-texto" placeholder="Ex: CLARO TV+" style="grid-column: 1 / -1;">
+        <button type="button" class="btn-remove" style="grid-column: 1 / -1;">🗑️ Remover</button>
+    `
+    div.querySelector(".btn-remove").addEventListener("click", () => { div.remove(); gerar() })
+    div.querySelector("input").addEventListener("input", gerar)
+    lista.appendChild(div)
+}
+
+window.adicionarResponsavelFca = () => {
+    const lista = $("fca-responsaveis-lista")
+    const div = document.createElement("div")
+    div.className = "fca-responsavel-item group"
+    div.innerHTML = `
+        <input class="fca-responsavel-texto" placeholder="Ex: MOPS TV DO FUTURO" style="grid-column: 1 / -1;">
+        <button type="button" class="btn-remove" style="grid-column: 1 / -1;">🗑️ Remover</button>
+    `
+    div.querySelector(".btn-remove").addEventListener("click", () => { div.remove(); gerar() })
+    div.querySelector("input").addEventListener("input", gerar)
+    lista.appendChild(div)
 }

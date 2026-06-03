@@ -1,32 +1,25 @@
-import { $, setReport, formatarData, getTextoSelect } from "../js/utils.js"
+import { $, setReport, formatarData, getTextoSelect, getSalaLink } from "../js/utils.js"
 
 export function gerarCoti() {
     if (!$("chamado")) return
 
     let causa = $("causa").value.trim() || "Em análise"
-    let acao = $("acao").value.trim() || "Em análise"
+    let conclusao = $("acao").value.trim() || "Em análise"
 
     const fim = $("fim").value ? formatarData($("fim").value) : "''"
+    const salaLink = getSalaLink("tem-sala", "sala-link")
+    const linhasSala = salaLink ? `\n*Link da sala:* ${salaLink}\n` : ""
 
     setReport(`*MOPs ☀️ - COTI INC-${$("chamado").value}*
 
-*Início do Problema:* ${formatarData($("inicio").value)} | HF: ${fim}
+*Período:* ${formatarData($("inicio").value)} – ${fim}
 
-*STATUS:*
-* ${getTextoSelect("status")}*
+*Resumo:*
+- ${$("resumo").value}
 
-*Jornada:* ${getTextoSelect("jornada")}
-*Funcionalidade:* ${$("funcionalidade").value}
-*Qual o Impacto?:* ${getTextoSelect("impacto")}
-
-*Resumo:* ${$("resumo").value}
-
-*FATO:* ${$("fato").value}
-*CAUSA:* ${causa}
-*AÇÃO:* ${acao}
-
-*RESPONSÁVEL PELA ANÁLISE: [MOPS]*
-
-*📍 Status Report:* ${$("statusReport").value}
+- *Causa:* ${causa}
+- *Conclusão:* ${conclusao}
+*Status :* ${getTextoSelect("status")}
+${linhasSala}
 `)
 }
