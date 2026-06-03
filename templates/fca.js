@@ -39,7 +39,7 @@ export function gerarFca() {
         .filter(Boolean)
         .join(" / ")
 
-    setReport(`[MOPS - TV DO FUTURO - ${$("fca-titulo").value.trim().toUpperCase()}]
+    setReport(`*[MOPS - TV DO FUTURO - ${$("fca-titulo").value.trim().toUpperCase()}]*
 
 
 *DATA - HI:* ${hi}
