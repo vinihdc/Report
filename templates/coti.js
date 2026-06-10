@@ -15,7 +15,7 @@ export function gerarCoti() {
 *Status :* ${getTextoSelect("status")}
 ${linhasSala}
 *Resumo:*
-- ${$("resumo").value}
+- ${$("resumo").value} 
 - *Causa:* ${causa}
 
 - *Conclusão:* ${conclusao}
