@@ -11,15 +11,13 @@ export function gerarCoti() {
     const linhasSala = salaLink ? `\n*Link da sala:* ${salaLink}\n` : ""
 
     setReport(`*MOPs ☀️ - COTI INC-${$("chamado").value}*
-
 *Período:* ${formatarData($("inicio").value)} – ${fim}
-
-*Resumo:*
-- ${$("resumo").value}
-
-- *Causa:* ${causa}
-- *Conclusão:* ${conclusao}
 *Status :* ${getTextoSelect("status")}
 ${linhasSala}
+*Resumo:*
+- ${$("resumo").value}
+- *Causa:* ${causa}
+
+- *Conclusão:* ${conclusao}
 `)
 }
